@@ -1,16 +1,18 @@
 import { asyncCurrentUser, setStudent } from "@/store/Actions/StudentActions";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 const index = () => {
+    const router = useRouter();
     const dispatch = useDispatch();
-    const student = useSelector((state) => state.StudentReducer);
-    console.log(student);
-
+    const { isAuthenticated } = useSelector((state) => state.StudentReducer);
+    console.log(isAuthenticated);
     useEffect(() => {
-        dispatch(asyncCurrentUser());
-    }, []);
+        if (!isAuthenticated) dispatch(asyncCurrentUser());
+        if (isAuthenticated) router.push("/auth/home");
+    }, [isAuthenticated]);
 
     return (
         <div>

@@ -1,9 +1,13 @@
-import React from "react";
-import { asyncsignup } from "../store/Actions/StudentActions";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { asyncCurrentUser, asyncsignup } from "../store/Actions/StudentActions";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
 const Register = () => {
     const dispatch = useDispatch();
+    const router = useRouter();
+    const { isAuthenticated } = useSelector((state) => state.StudentReducer);
+
     const SubmitHandler = (e) => {
         e.preventDefault();
         const student = {
@@ -17,6 +21,11 @@ const Register = () => {
         };
         dispatch(asyncsignup(student));
     };
+
+    useEffect(() => {
+        if (!isAuthenticated) dispatch(asyncCurrentUser());
+        if (isAuthenticated) router.push("/auth/home");
+    }, [isAuthenticated]);
 
     return (
         <div>
