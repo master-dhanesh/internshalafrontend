@@ -10,7 +10,7 @@ const Login = () => {
     const SubmitHandler = (e) => {
         e.preventDefault();
         const student = {
-            email: "sar@thack.com",
+            email: "sheryians.community@gmail.com",
             password: "123456",
         };
         dispatch(asyncsignin(student));
@@ -24,7 +24,8 @@ const Login = () => {
     return (
         <div>
             <h1>Login In Page</h1>
-            <button onClick={SubmitHandler}>Signin</button>
+            <button onClick={SubmitHandler}>Student Signin</button>
+            <Link href="/forget"> Forget Password ?</Link>
             <Link href="/auth/home">Homepage</Link>
         </div>
     );
